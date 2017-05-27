@@ -117,7 +117,7 @@ train_generator = generator(samples, batch_size=batch_size)
 #validation_generator = generator(samples[n_training_samples:n_samples], batch_size=batch_size)
 X_batch, y_batch = train_generator.__next__()
 print(y_batch.shape)
-#model.fit_generator(train_generator, epochs=epochs, steps_per_epoch=n_samples / batch_size)
+model.fit_generator(train_generator, epochs=epochs, steps_per_epoch=n_samples / batch_size)
 
 model.save(model_file_name)
 print("model saved as " + model_file_name)
