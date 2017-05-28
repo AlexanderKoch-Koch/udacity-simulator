@@ -68,7 +68,7 @@ def generator(samples, batch_size=32):
                 # append images and corresponding steering angles to data sets
                 images.append(center_image)
                 angles.append(float(batch_sample[3]))
-                images.append(left_image)
+                '''images.append(left_image)
                 angles.append(float(batch_sample[3]) + 0.2)
                 images.append(right_image)
                 angles.append(float(batch_sample[3]) - 0.2)
@@ -79,7 +79,7 @@ def generator(samples, batch_size=32):
                 images.append(left_image_flipped)
                 angles.append(-1 * (float(batch_sample[3]) + 0.2))
                 images.append(right_image_flipped)
-                angles.append(-1 * (float(batch_sample[3]) - 0.2))
+                angles.append(-1 * (float(batch_sample[3]) - 0.2))'''
 
             X_train = np.array(images)
             y_train = np.array(angles)
@@ -112,6 +112,8 @@ n_samples = len(samples)
 print("number of samples: " + str(n_samples))
 
 train_generator = generator(samples, batch_size=batch_size)
+X_batch, y_batch = train_generator.next()
+print(y_batch.shape)
 
 model.fit_generator(train_generator, epochs=epochs, steps_per_epoch=n_samples / batch_size)
 
