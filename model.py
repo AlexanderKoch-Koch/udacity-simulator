@@ -67,7 +67,7 @@ def generator(samples, batch_size=32):
 
                 # append images and corresponding steering angles to data sets
                 images.append(center_image)
-                angles.append(batch_sample[3])
+                angles.append(float(batch_sample[3]))
                 images.append(left_image)
                 angles.append(float(batch_sample[3]) + 0.2)
                 images.append(right_image)
