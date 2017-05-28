@@ -6,7 +6,7 @@ from keras.models import Sequential, load_model
 from keras.layers import Dense, Activation, Flatten, Conv2D, Lambda, Dropout
 import sklearn
 
-epochs = 3
+epochs = 10
 batch_size = 32
 use_old_model = False
 model_file_name = "model.h5"
@@ -34,7 +34,7 @@ def random_brightness(image):
 def generator(samples, batch_size=32):
     num_samples = len(samples)
     while 1:  # Loop forever so the generator never terminates
-        sklearn.utils.shuffle(samples)
+        samples = sklearn.utils.shuffle(samples)
         for offset in range(0, num_samples, batch_size):
             batch_samples = samples[offset:offset+batch_size]
             images = []
@@ -109,14 +109,10 @@ else:
     model.compile(loss="mse", optimizer="adam")
 
 n_samples = len(samples)
-#n_training_samples = int(n_samples - n_samples * validation_split)
-#n_validation_samples = n_samples - n_training_samples
 print("number of samples: " + str(n_samples))
 
 train_generator = generator(samples, batch_size=batch_size)
-#validation_generator = generator(samples[n_training_samples:n_samples], batch_size=batch_size)
-X_batch, y_batch = train_generator.__next__()
-print(y_batch.shape)
+
 model.fit_generator(train_generator, epochs=epochs, steps_per_epoch=n_samples / batch_size)
 
 model.save(model_file_name)
